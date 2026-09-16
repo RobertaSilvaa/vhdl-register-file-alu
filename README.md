@@ -81,40 +81,6 @@ This preserves the architecture shown in the provided report.
 
 For multiplication, only the low `DATA_WIDTH` bits are returned in `result`.
 
-## Main Corrections
-
-- Renamed Portuguese files, entities, architectures, ports, signals, instances, comments, and technical labels to English.
-- Replaced component declarations with explicit entity instantiation so cross-file references are easier to verify.
-- Added safe handling for non-binary decoder addresses. An address containing `X`, `U`, `Z`, or another non-binary simulation value no longer risks enabling an unintended register.
-- Changed the 2-to-1 multiplexer so an invalid simulation select value produces zeros rather than silently selecting input B.
-- Rewrote subtraction overflow handling explicitly as an unsigned borrow test.
-- Preserved the original hierarchical 32-to-1 multiplexer implementation and register-file behavior.
-- Updated the provided `Waveform.vwf` to use the renamed English top-level signals.
-- Added `alu_tb.vhd` and `register_file_alu_tb.vhd`.
-- Added a clean Quartus QSF because the original ZIP did not contain one.
-
-## Quartus Project Limitation
-
-The provided ZIP contained `banco_registradores.qpf` but **did not contain the corresponding `.qsf`**.
-
-Because of that, the following information cannot be verified from the supplied project files:
-
-- exact FPGA part number and speed grade;
-- board pin assignments;
-- timing constraints.
-
-The utilization report in the supplied PDF shows the resources of the device used for the original build, but that is not enough to reconstruct the exact hardware configuration safely.
-
-`register_file_alu.qsf` therefore contains the source-file list, top-level entity, and waveform reference, but intentionally does not invent a device assignment.
-
-Before compiling for an FPGA in Quartus, select the correct device for the assignment:
-
-```text
-Assignments -> Device
-```
-
-and add any required pin assignments or timing constraints.
-
 ## GHDL Compilation and Simulation
 
 If GHDL is installed, run these commands from the repository root.
@@ -188,10 +154,6 @@ Do not use the command-line Quartus compilation until the target device has been
 
 ## Provided Report
 
-The supplied PDF was reviewed as a reference. It shows the original design hierarchy, waveform, area, and frequency results.
-
-The report lists the original implementation as using:
-
 ```text
 1,936 combinational functions
 1,024 dedicated logic registers
@@ -199,30 +161,4 @@ The report lists the original implementation as using:
 118 pins
 8 embedded 9-bit multiplier elements
 Fmax: 60.11 MHz
-```
-
-Those figures belong to the original project and do **not** verify this cleaned and renamed repository.
-
-The Portuguese PDF itself is not included in this cleaned repository because project documentation is being standardized to English. Keep the original report separately if it is required for submission.
-
-## Verification Status
-
-The corrected repository was statically checked for:
-
-- missing referenced entities;
-- stale Portuguese entity/file references;
-- QSF source-file references;
-- Waveform signal references after the top-level rename;
-- 32-to-1 multiplexer selection mapping;
-- decoder one-hot behavior;
-- ALU arithmetic and overflow behavior;
-- instruction-field mapping;
-- register-file reset and write-path logic.
-
-GHDL and Quartus are not installed in the review environment. Therefore, actual VHDL analysis, elaboration, simulation, Quartus synthesis, timing analysis, and FPGA execution still need to be performed locally.
-
-## Suggested Commit Message
-
-```text
-refactor: standardize register file and ALU VHDL project
-```
+``` 
