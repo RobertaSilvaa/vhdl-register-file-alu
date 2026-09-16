@@ -1,0 +1,3 @@
+QUARTUS_VERSION = "13.0"
+
+PROJECT_REVISION = "register_file_alu"

@@ -1,0 +1,17 @@
+# Portable Quartus project configuration.
+# The original ZIP did not include its QSF file, so the exact FPGA part number
+# and board pin assignments cannot be recovered reliably from the provided files.
+
+set_global_assignment -name TOP_LEVEL_ENTITY register_file_alu
+set_global_assignment -name ORIGINAL_QUARTUS_VERSION "13.0 SP1"
+
+set_global_assignment -name VHDL_FILE data_register.vhd
+set_global_assignment -name VHDL_FILE decoder_5_to_32.vhd
+set_global_assignment -name VHDL_FILE mux_2_to_1.vhd
+set_global_assignment -name VHDL_FILE mux_4_to_1.vhd
+set_global_assignment -name VHDL_FILE mux_32_to_1.vhd
+set_global_assignment -name VHDL_FILE register_array.vhd
+set_global_assignment -name VHDL_FILE alu.vhd
+set_global_assignment -name VHDL_FILE register_file_alu.vhd
+
+set_global_assignment -name VECTOR_WAVEFORM_FILE Waveform.vwf
